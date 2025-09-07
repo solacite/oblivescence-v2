@@ -110,6 +110,8 @@ func check_spike_collision():
 	is_kill = false
 	if tile_data:
 		is_kill = tile_data.get_custom_data("is_kill")
+		if is_kill:
+			respawn()
 
 func check_ladder_collision():
 	if not tilemap:
