@@ -7,17 +7,25 @@ const DASH_DURATION = 0.2
 const JUMP_VELOCITY = -275.0
 const CLIMB_SPEED = 100.0
 
+var respawn_position : Vector2
+
 var is_dashing = false
 var dash_timer = 0.0
+
+var is_kill: bool = false
 
 # ladder sys
 var on_ladder: bool = false
 @onready var tilemap
 
 # anim & visuals
-@onready var sprite: AnimatedSprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
+	add_to_group("Player")
+	
+	respawn_position = global_position
+	
 	# check sprite node exists
 	if not sprite:
 		print("warn: animatedsprite2d not found! ensure named 'Sprite2D'")
@@ -48,9 +56,36 @@ func search_for_tilemap(node: Node) -> TileMap:
 # get default grav
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func check_checkpoint():
+	if not tilemap:
+		return
+
+	# get the tile under the player's feet
+	var tile_pos = tilemap.local_to_map(global_position)
+	var tile_data = tilemap.get_cell_tile_data(0, tile_pos)
+
+	if tile_data and tile_data.get_custom_data("is_checkpoint"):
+		# save checkpoint position if it's new
+		if respawn_position != global_position:
+			respawn_position = global_position
+			print("checkpoint reached at: ", respawn_position)
+
+func respawn():
+	global_position = respawn_position
+	velocity = Vector2.ZERO
+	
+	# reset camera to player immediately
+	var cam = get_node("Camera2D")
+	if cam and cam.is_class("Camera2D"):
+		cam.global_position = global_position
+
 func _physics_process(delta: float) -> void:
 	# check ladder collision first
 	check_ladder_collision()
+	
+	check_spike_collision()
+	
+	check_checkpoint()
 
 	# handle movement based on ladder state
 	if on_ladder:
@@ -63,6 +98,18 @@ func _physics_process(delta: float) -> void:
 
 	# update anims
 	update_animations()
+
+func check_spike_collision():
+	if not tilemap:
+		return
+	
+	# check tile at player pos
+	var tile_pos = tilemap.local_to_map(global_position)
+	var tile_data = tilemap.get_cell_tile_data(0, tile_pos)
+	
+	is_kill = false
+	if tile_data:
+		is_kill = tile_data.get_custom_data("is_kill")
 
 func check_ladder_collision():
 	if not tilemap:

@@ -300,3 +300,4 @@ shape = SubResource("RectangleShape2D_tuyoq")
 scale = Vector2(0.130719, 0.130719)
 zoom = Vector2(5.8, 5.8)
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
