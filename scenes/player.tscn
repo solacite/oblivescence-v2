@@ -291,10 +291,12 @@ script = ExtResource("1_qlg0r")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_ur7pv")
 animation = &"idle"
-frame_progress = 0.667984
+frame_progress = 0.914873
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_tuyoq")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(-0.257708, -1.46278)
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+scale = Vector2(0.130719, 0.130719)
+zoom = Vector2(5.8, 5.8)
+position_smoothing_enabled = true

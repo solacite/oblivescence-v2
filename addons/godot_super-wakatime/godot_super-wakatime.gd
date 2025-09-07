@@ -255,6 +255,7 @@ func send_heartbeat(filepath: String, is_write: bool) -> void:
 	
 	# Send heartbeat using Wakatime CLI
 	var cmd_callable = Callable(self, "_handle_heartbeat").bind(cmd)
+	print("Sent heartbeat!")
 	
 	scene_mode = false
 	
