@@ -285,16 +285,16 @@ animations = [{
 [node name="Player" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+scale = Vector2(7.65, 7.65)
 script = ExtResource("1_qlg0r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-position = Vector2(225.5, 389.5)
-scale = Vector2(2.4375, 2.25694)
 sprite_frames = SubResource("SpriteFrames_ur7pv")
-animation = &"fall"
-frame_progress = 0.926266
+animation = &"idle"
+frame_progress = 0.667984
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(218, 386)
-scale = Vector2(3.4, 2.43925)
 shape = SubResource("RectangleShape2D_tuyoq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(-0.257708, -1.46278)

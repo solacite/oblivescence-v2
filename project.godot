@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="oblivescence v2"
-run/main_scene="uid://ba6whiidtkuq0"
+run/main_scene="uid://c2fhhv6dhr634"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [editor_plugins]
